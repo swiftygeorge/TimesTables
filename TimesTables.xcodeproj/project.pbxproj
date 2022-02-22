@@ -13,6 +13,9 @@
 		32B72F3027C539F500981943 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B72F2F27C539F500981943 /* Preview Assets.xcassets */; };
 		32B72F3727C561F600981943 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B72F3627C561F600981943 /* SettingsRowView.swift */; };
 		32B72F3927C5654C00981943 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B72F3827C5654C00981943 /* SettingsView.swift */; };
+		32C67EFB27C575BD004673D1 /* Caveat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 32C67EFA27C575BD004673D1 /* Caveat-Bold.ttf */; };
+		32C67EFD27C583B6004673D1 /* NumberButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C67EFC27C583B6004673D1 /* NumberButtonView.swift */; };
+		32C67F0027C5937A004673D1 /* ControlButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C67EFF27C5937A004673D1 /* ControlButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,10 @@
 		32B72F2F27C539F500981943 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		32B72F3627C561F600981943 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		32B72F3827C5654C00981943 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		32B72F3D27C570C900981943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		32C67EFA27C575BD004673D1 /* Caveat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Caveat-Bold.ttf"; sourceTree = "<group>"; };
+		32C67EFC27C583B6004673D1 /* NumberButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberButtonView.swift; sourceTree = "<group>"; };
+		32C67EFF27C5937A004673D1 /* ControlButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +62,10 @@
 		32B72F2727C539F300981943 /* TimesTables */ = {
 			isa = PBXGroup;
 			children = (
+				32B72F3D27C570C900981943 /* Info.plist */,
 				32B72F2827C539F300981943 /* TimesTablesApp.swift */,
-				32B72F2A27C539F300981943 /* ContentView.swift */,
-				32B72F3827C5654C00981943 /* SettingsView.swift */,
-				32B72F3627C561F600981943 /* SettingsRowView.swift */,
+				32B72F3C27C5707E00981943 /* project_fonts */,
+				32C67EFE27C584BD004673D1 /* Views */,
 				32B72F2C27C539F500981943 /* Assets.xcassets */,
 				32B72F2E27C539F500981943 /* Preview Content */,
 			);
@@ -71,6 +78,26 @@
 				32B72F2F27C539F500981943 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		32B72F3C27C5707E00981943 /* project_fonts */ = {
+			isa = PBXGroup;
+			children = (
+				32C67EFA27C575BD004673D1 /* Caveat-Bold.ttf */,
+			);
+			path = project_fonts;
+			sourceTree = "<group>";
+		};
+		32C67EFE27C584BD004673D1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				32B72F2A27C539F300981943 /* ContentView.swift */,
+				32B72F3827C5654C00981943 /* SettingsView.swift */,
+				32B72F3627C561F600981943 /* SettingsRowView.swift */,
+				32C67EFC27C583B6004673D1 /* NumberButtonView.swift */,
+				32C67EFF27C5937A004673D1 /* ControlButtonView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,6 +160,7 @@
 			files = (
 				32B72F3027C539F500981943 /* Preview Assets.xcassets in Resources */,
 				32B72F2D27C539F500981943 /* Assets.xcassets in Resources */,
+				32C67EFB27C575BD004673D1 /* Caveat-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +173,9 @@
 			files = (
 				32B72F2B27C539F300981943 /* ContentView.swift in Sources */,
 				32B72F3927C5654C00981943 /* SettingsView.swift in Sources */,
+				32C67F0027C5937A004673D1 /* ControlButtonView.swift in Sources */,
 				32B72F2927C539F300981943 /* TimesTablesApp.swift in Sources */,
+				32C67EFD27C583B6004673D1 /* NumberButtonView.swift in Sources */,
 				32B72F3727C561F600981943 /* SettingsRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +310,7 @@
 				DEVELOPMENT_TEAM = 2CX433B5AP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimesTables/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,6 +341,7 @@
 				DEVELOPMENT_TEAM = 2CX433B5AP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimesTables/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
