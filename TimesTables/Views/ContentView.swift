@@ -16,6 +16,11 @@ struct ContentView: View {
     @State private var numberOfQuestions = 10
     @State private var answer = 0
     @State private var answerString = ""
+    @State private var score = 0
+    
+    @State private var factorA = 0
+    @State private var factorB = 0
+    @State private var correctAnswer = 0
     
     var deleteButtonBG: LinearGradient = LinearGradient(gradient: Gradient(colors: [Color("Radical Red"), Color("Orange Soda")]), startPoint: .topLeading, endPoint: .bottomTrailing)
     
@@ -26,24 +31,24 @@ struct ContentView: View {
             if gameStarted {
                 VStack(alignment: .center, spacing: 30) {
                     VStack(spacing: 10) {
-                        Text("What's")
+                        Text("What's".uppercased())
                             .font(.title.weight(.medium))
                             .foregroundColor(.secondary)
                         
                         HStack(alignment: .center, spacing: 10) {
-                            Image(systemName: "5.square")
+                            Image(systemName: "\(factorA).square")
                                 .symbolRenderingMode(.multicolor)
                                 .font(.system(size: 70))
                             
                             Text("x")
-                            Image(systemName: "9.square")
+                            Image(systemName: "\(factorB).square")
                                 .symbolRenderingMode(.multicolor)
                                 .font(.system(size: 70))
                         } //hstack
                         .font(.largeTitle.bold())
                     } //vstack
                     
-                    Text("")
+                    Text(answerString)
                         .font(.largeTitle.bold())
                         .foregroundColor(.secondary)
                         .tracking(2)
@@ -59,23 +64,11 @@ struct ContentView: View {
                         HStack(alignment: .center) {
                             Spacer()
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "cow", digit: "1", color: .red)
+                            NumberButtonView(answerString: $answerString, imageName: "cow", digit: "1", color: .red)
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "duck", digit: "2", color: .blue)
+                            NumberButtonView(answerString: $answerString, imageName: "duck", digit: "2", color: .blue)
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "horse", digit: "3", color: .green)
-                            Spacer()
-                            Spacer()
-                        } //hstack
-                        
-                        HStack {
-                            Spacer()
-                            Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "dog", digit: "4", color: .yellow)
-                            Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "goat", digit: "5", color: .purple)
-                            Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "pig", digit: "6", color: .mint)
+                            NumberButtonView(answerString: $answerString, imageName: "horse", digit: "3", color: .green)
                             Spacer()
                             Spacer()
                         } //hstack
@@ -83,11 +76,11 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "giraffe", digit: "7", color: .yellow)
+                            NumberButtonView(answerString: $answerString, imageName: "dog", digit: "4", color: .yellow)
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "narwhal", digit: "8", color: .purple)
+                            NumberButtonView(answerString: $answerString, imageName: "goat", digit: "5", color: .purple)
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "parrot", digit: "9", color: .mint)
+                            NumberButtonView(answerString: $answerString, imageName: "pig", digit: "6", color: .mint)
                             Spacer()
                             Spacer()
                         } //hstack
@@ -95,11 +88,33 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Spacer()
-                            ControlButtonView(title: "Delete", bgGradient: deleteButtonBG)
+                            NumberButtonView(answerString: $answerString, imageName: "giraffe", digit: "7", color: .yellow)
                             Spacer()
-                            NumberButtonView(answerString: $answer, imageName: "snake", digit: "0", color: .orange)
+                            NumberButtonView(answerString: $answerString, imageName: "narwhal", digit: "8", color: .purple)
                             Spacer()
-                            ControlButtonView(title: "Submit", bgGradient: submitButtonBG)
+                            NumberButtonView(answerString: $answerString, imageName: "parrot", digit: "9", color: .mint)
+                            Spacer()
+                            Spacer()
+                        } //hstack
+                        
+                        HStack {
+                            Spacer()
+                            Spacer()
+                            ControlButtonView(answerString: $answerString, title: "Delete", bgGradient: deleteButtonBG) {
+                                if !answerString.isEmpty {
+                                    answerString.removeLast()
+                                } //if
+                            } //controlbuttonview
+                            Spacer()
+                            NumberButtonView(answerString: $answerString, imageName: "snake", digit: "0", color: .orange)
+                            Spacer()
+                            ControlButtonView(answerString: $answerString, title: "Submit", bgGradient: submitButtonBG) {
+                                if !answerString.isEmpty {
+                                    answer = Int(answerString) ?? 0
+                                } //if
+                                
+                                nextQuestion()
+                            } //controlbuttonview
                             Spacer()
                             Spacer()
                         } //hstack
@@ -116,7 +131,22 @@ struct ContentView: View {
                             Image(systemName: "gearshape")
                         } //button
                     } //toolbaritem
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Score: \(score)")
+                            .font(.headline.bold())
+                            .padding(.vertical, 8)
+                            .padding(.horizontal)
+                            .background(.thickMaterial)
+                            .cornerRadius(10)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10).stroke()
+                            }
+                    } //toolbaritem
                 } //toolbar
+                .onAppear {
+                    generateFactors()
+                } //onappear
             } else {
                 SettingsView(
                     gameStarted: $gameStarted,
@@ -129,6 +159,24 @@ struct ContentView: View {
                     .navigationBarTitleDisplayMode(.inline)
             } //if-else
         } //nav
+    }
+    
+    func generateFactors() {
+        factorA = Int.random(in: minimumTableValue...maximumTableValue)
+        factorB = Int.random(in: 1...10)
+        correctAnswer = factorA * factorB
+    }
+    
+    func nextQuestion() {
+        // check if answer is correct
+        if answer == correctAnswer {
+            score += 1
+        } //if
+        
+        // generate new factors
+        generateFactors()
+        // reset variables
+        answerString = ""
     }
 }
 

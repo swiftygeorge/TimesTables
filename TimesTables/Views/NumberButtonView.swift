@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NumberButtonView: View {
-    @Binding var answerString: Int
+    @Binding var answerString: String
     
     var imageName: String
     var digit: String
@@ -16,7 +16,7 @@ struct NumberButtonView: View {
     
     var body: some View {
         Button {
-           // do something
+           answerString += digit
         } label: {
             HStack(alignment: .center, spacing: 5) {
                 Text(digit)
@@ -38,14 +38,15 @@ struct NumberButtonView: View {
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .frame(minWidth: 100)
-            .shadow(radius: 1)
+            .shadow(radius: 2)
         } //button
+        .disabled(answerString.count == 3)
     }
 }
 
 struct NumberButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        NumberButtonView(answerString: .constant(0), imageName: "horse", digit: "3", color: .green)
+        NumberButtonView(answerString: .constant("0"), imageName: "horse", digit: "3", color: .green)
             .previewLayout(.sizeThatFits)
             .padding()
     }

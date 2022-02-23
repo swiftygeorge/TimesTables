@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct ControlButtonView: View {
+    @Binding var answerString: String
+    
     var title: String
     var bgGradient: LinearGradient
+    var execute: () -> Void
     
     var body: some View {
         Button {
-            // do something
+            execute()
         } label: {
             Text(title.uppercased())
                 .fontWeight(.heavy)
@@ -24,13 +27,14 @@ struct ControlButtonView: View {
                 .foregroundColor(.white)
                 .shadow(radius: 2)
         } //button
+        .disabled(answerString.isEmpty)
     }
 }
 
 struct ControlButtonView_Previews: PreviewProvider {
     static var bgGradient = LinearGradient(gradient: Gradient(colors: [.yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing)
     static var previews: some View {
-        ControlButtonView(title: "delete", bgGradient: bgGradient)
+        ControlButtonView(answerString: .constant(""), title: "delete", bgGradient: bgGradient, execute: {})
             .previewLayout(.sizeThatFits)
             .padding()
     }
