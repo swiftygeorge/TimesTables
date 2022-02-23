@@ -12,6 +12,7 @@ struct SettingsView: View {
     @Binding var minimumTableValue: Int
     @Binding var maximumTableValue: Int
     @Binding var numberOfQuestions: Int
+    @Binding var score: Int
     
     var questionCountOptions: [Int]
     
@@ -53,7 +54,10 @@ struct SettingsView: View {
             Section {
                 HStack {
                     Spacer()
-                    Button("START", action: { gameStarted = true })
+                    Button("START") {
+                        gameStarted = true
+                        score = 0
+                    } //button
                     Spacer()
                 } //hstack
             } //section
@@ -68,6 +72,7 @@ struct SettingsView_Previews: PreviewProvider {
             minimumTableValue: .constant(2),
             maximumTableValue: .constant(5),
             numberOfQuestions: .constant(10),
+            score: .constant(0),
             questionCountOptions: [5, 10, 15, 20, 25]
         )
     }

@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var questionCountOptions = [5, 10, 15, 20, 25]
     
-    @State private var gameStarted = true
+    @State private var gameStarted = false
+    @State private var gameOver = false
     @State private var minimumTableValue = 2
     @State private var maximumTableValue = 5
     @State private var numberOfQuestions = 10
@@ -113,7 +114,13 @@ struct ContentView: View {
                                     answer = Int(answerString) ?? 0
                                 } //if
                                 
-                                nextQuestion()
+                                if numberOfQuestions > 1 {
+                                    nextQuestion()
+                                } else {
+                                    score += 1
+                                    gameOver = true
+                                    answerString = ""
+                                } //if
                             } //controlbuttonview
                             Spacer()
                             Spacer()
@@ -147,12 +154,24 @@ struct ContentView: View {
                 .onAppear {
                     generateFactors()
                 } //onappear
+                .alert("Game Over!", isPresented: $gameOver) {
+                    Button("Cancel", role: .cancel) {
+                        gameStarted = false
+                        numberOfQuestions = 10
+                    } //button
+                    Button("Play Again") {
+                        restartGame()
+                    } //button
+                } message: {
+                    Text("Your final score is \(score)")
+                } //alert
             } else {
                 SettingsView(
                     gameStarted: $gameStarted,
                     minimumTableValue: $minimumTableValue,
                     maximumTableValue: $maximumTableValue,
                     numberOfQuestions: $numberOfQuestions,
+                    score: $score,
                     questionCountOptions: questionCountOptions
                 )
                     .navigationTitle("Settings")
@@ -177,6 +196,15 @@ struct ContentView: View {
         generateFactors()
         // reset variables
         answerString = ""
+        numberOfQuestions -= 1
+    }
+    
+    func restartGame() {
+        generateFactors()
+        answerString = ""
+        score = 0
+        numberOfQuestions = 10
+        gameStarted = false
     }
 }
 
